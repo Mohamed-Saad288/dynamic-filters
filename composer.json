@@ -1,0 +1,26 @@
+{
+    "name": "mohamedsaad/dynamic-filters",
+    "description": "Dynamic filtering package for Laravel models with support for relations and custom operators",
+    "type": "library",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "MohamedSaad\\DynamicFilters\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mohamed Saad",
+            "email": "mohamed.saadd288@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MohamedSaad\\DynamicFilters\\DynamicFiltersServiceProvider"
+            ]
+        }
+    }
+}
