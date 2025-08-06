@@ -1,13 +1,26 @@
-All Code Examples for Laravel Dynamic Filters
-Installation
+# Laravel Dynamic Filters
+
+A powerful package to add dynamic filtering, searching, sorting, and column selection to your Laravel models and API endpoints.
+
+## Installation
+
 Install the package via Composer:
+
+```bash
 composer require mohamedsaad/dynamic-filters
+```
 
 Publish the configuration file:
-php artisan vendor:publish --tag=dynamic-filters-config
 
-Configuration File
-The configuration file will be published to config/dynamic-filters.php:
+```bash
+php artisan vendor:publish --tag=dynamic-filters-config
+```
+
+## Configuration File
+
+The configuration file will be published to `config/dynamic-filters.php`:
+
+```php
 <?php
 
 return [
@@ -36,9 +49,13 @@ return [
     */
     'allowed_sorting_columns' => [],
 ];
+```
 
-Model Setup
-Add the HasDynamicFilters trait to your Eloquent model and optionally define searchable columns:
+## Model Setup
+
+Add the `HasDynamicFilters` trait to your Eloquent model and optionally define searchable columns:
+
+```php
 <?php
 
 namespace App\Models;
@@ -53,9 +70,13 @@ class User extends Model
     // Optional: Define searchable columns for the "search" feature
     protected array $searchable = ['name', 'email', 'profile.city'];
 }
+```
 
-Controller Setup
+## Controller Setup
+
 Apply filters, search, sorting, and column selection dynamically in your controller:
+
+```php
 <?php
 
 namespace App\Http\Controllers;
@@ -73,33 +94,60 @@ class UserController extends Controller
         return response()->json($users);
     }
 }
+```
 
-API Examples
-Apply Filters to Specific Columns
+## API Examples
+
+### Apply Filters to Specific Columns
+
+```
 GET /users?filters[status]=active&filters[age][operator]=>&filters[age][value]=25
+```
 
-Filtering Relations
+### Filtering Relations
+
+```
 GET /users?filters[organization]=2
 GET /users?filters[organization.name]=CompanyX
+```
 
-Global Search
+### Global Search
+
 Search across all predefined searchable columns:
+
+```
 GET /users?search=ahmed
+```
 
-Column Selection
+### Column Selection
+
 Select only the columns you need:
+
+```
 GET /users?columns[]=id&columns[]=name
+```
 
-Multi-level Sorting
-Sort by multiple columns (prefix with - for descending):
+### Multi-level Sorting
+
+Sort by multiple columns (prefix with `-` for descending):
+
+```
 GET /users?sort=-created_at,name,profile.city
+```
 
-Combined Example
+### Combined Example
+
 Combine everything in one request:
-GET /users?search=ahmed&filters[status]=active&filters[organization.id]=3&columns[]=id&columns[]=name&sort=-created_at,email
 
-Using with API Resources
+```
+GET /users?search=ahmed&filters[status]=active&filters[organization.id]=3&columns[]=id&columns[]=name&sort=-created_at,email
+```
+
+## Using with API Resources
+
 Integrate with Laravel API Resources:
+
+```php
 <?php
 
 namespace App\Http\Controllers;
@@ -116,3 +164,8 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 }
+```
+
+## License
+
+This package is open-sourced software licensed under the [MIT license](LICENSE).
